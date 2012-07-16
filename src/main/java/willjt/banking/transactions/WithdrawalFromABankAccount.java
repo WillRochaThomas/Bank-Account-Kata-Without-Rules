@@ -6,14 +6,14 @@ import willjt.banking.transactions.base.TransactionWithAPositiveAmount;
 
 public class WithdrawalFromABankAccount extends TransactionWithAPositiveAmount implements BankAccountTransaction {
 
-    private BankAccount bankAccountBeingWithdrawnFrom;
+    private BankAccount theBankAccount;
 
-    public WithdrawalFromABankAccount(BankAccount bankAccountBeingWithdrawnFrom, int transactionAmount) {
-        super(transactionAmount);
-        this.bankAccountBeingWithdrawnFrom = bankAccountBeingWithdrawnFrom;
+    public WithdrawalFromABankAccount(BankAccount theBankAccount, int withdrawalAmount) {
+        super(withdrawalAmount);
+        this.theBankAccount = theBankAccount;
     }
 
     public void execute() {
-        bankAccountBeingWithdrawnFrom.deductFromBalance(transactionAmount);
+        theBankAccount.deductFromBalance(transactionAmount);
     }
 }

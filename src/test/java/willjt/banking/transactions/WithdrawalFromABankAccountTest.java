@@ -11,11 +11,7 @@ import static org.mockito.Mockito.verify;
 
 public class WithdrawalFromABankAccountTest {
 
-    private WithdrawalFromABankAccount withdrawal;
-    private static final int AMOUNT_TO_WITHDRAW = 3;
-    private static final int NEGATIVE_AMOUNT = -7;
-    private static final int ZERO_AMOUNT = 0;
-    @Mock private BankAccount account;
+    @Mock private BankAccount mockAccount;
 
 
     @Before
@@ -25,20 +21,10 @@ public class WithdrawalFromABankAccountTest {
 
     @Test
     public void shouldDeductedTheCorrectAmountFromTheAccountBalanceWhenAWithdrawalIsExecuted() throws Exception {
-        givenAWithdrawalFromABankAccountOfTheAmount(AMOUNT_TO_WITHDRAW);
-        whenTheWithdrawalIsExecuted();
-        thenTheAmountDeductedFromTheAccountBalanceIs(AMOUNT_TO_WITHDRAW);
-    }
+        WithdrawalFromABankAccount withdrawal = new WithdrawalFromABankAccount(mockAccount, 3);
 
-    private void givenAWithdrawalFromABankAccountOfTheAmount(int amountToWithdraw) {
-        withdrawal = new WithdrawalFromABankAccount(account, amountToWithdraw);
-    }
-
-    private void whenTheWithdrawalIsExecuted() {
         withdrawal.execute();
-    }
 
-    private void thenTheAmountDeductedFromTheAccountBalanceIs(int amountThatShouldBeDeducted) {
-        verify(account, times(1)).deductFromBalance(amountThatShouldBeDeducted);
+        verify(mockAccount, times(1)).deductFromBalance(3);
     }
 }
