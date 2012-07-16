@@ -16,7 +16,7 @@ public class BankAccount {
         return balance;
     }
 
-    public void resetBalance(int balance) {
+    public void resetBalanceTo(int balance) {
         this.balance = balance;
     }
 }

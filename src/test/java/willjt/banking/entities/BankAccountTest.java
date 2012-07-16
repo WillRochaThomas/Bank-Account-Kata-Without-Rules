@@ -12,34 +12,17 @@ public class BankAccountTest {
 
     @Test
     public void ensureThatADepositIsAddedToTheBalance() throws Exception {
-        givenAnAccountWithBalance(0);
-        whenADepositIsMadeWithAValueOf(10);
-        whenADepositIsMadeWithAValueOf(20);
-        thenExpectedBalanceIs(30);
+        account.resetBalanceTo(0);
+        account.addToBalance(10);
+        account.addToBalance(20);
+        assertThat(account.currentBalance(), equalTo(30));
     }
 
     @Test
     public void ensureThatAWithdrawalIsDeductedFromTheBalance() {
-        givenAnAccountWithBalance(10);
-        whenAWithdrawalIsMadeWithAValueOf(2);
-        whenAWithdrawalIsMadeWithAValueOf(4);
-        thenExpectedBalanceIs(4);
-    }
-
-    private void givenAnAccountWithBalance(int balance) {
-        account.resetBalance(balance);
-    }
-
-    private void whenADepositIsMadeWithAValueOf(int amount) {
-        account.addToBalance(amount);
-    }
-
-    private void whenAWithdrawalIsMadeWithAValueOf(int amount) {
-        account.deductFromBalance(amount);
-    }
-
-    private void thenExpectedBalanceIs(int expectedBalance) {
-        int actualBalance = account.currentBalance();
-        assertThat(actualBalance, equalTo(expectedBalance));
+        account.resetBalanceTo(10);
+        account.deductFromBalance(2);
+        account.deductFromBalance(4);
+        assertThat(account.currentBalance(), equalTo(4));
     }
 }
